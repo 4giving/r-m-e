@@ -1,4 +1,3 @@
-import { InputIcon } from 'outline-icons';
 import { EditorState } from 'prosemirror-state';
 
 import baseDictionary from '../dictionary';
@@ -11,9 +10,10 @@ import HeadingOne from './icons/headingOne';
 import HeadingThree from './icons/headingThree';
 import HeadingTwo from './icons/headingTwo';
 import ImageIcon from './icons/image';
+import InputIcon from './icons/input';
 import ItalicIcon from './icons/italic';
-import LinkIcon from './icons/Link';
-import QutoeIcon from './icons/quote';
+import LinkIcon from './icons/link';
+import QuoteIcon from './icons/quote';
 
 export default function formattingMenuItems(
 	state: EditorState,
@@ -79,7 +79,7 @@ export default function formattingMenuItems(
 		{
 			name: 'blockquote',
 			tooltip: dictionary.quote,
-			icon: QutoeIcon,
+			icon: QuoteIcon,
 			active: isNodeActive(schema.nodes.blockquote),
 			attrs: { level: 2 },
 			visible: allowBlocks
