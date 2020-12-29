@@ -1,4 +1,4 @@
-import { BlockQuoteIcon, Heading1Icon, Heading2Icon, HighlightIcon, InputIcon, LinkIcon } from 'outline-icons';
+import { InputIcon } from 'outline-icons';
 import { EditorState } from 'prosemirror-state';
 
 import baseDictionary from '../dictionary';
@@ -7,7 +7,13 @@ import isMarkActive from '../queries/isMarkActive';
 import isNodeActive from '../queries/isNodeActive';
 import { MenuItem } from '../types';
 import BoldIcon from './icons/bold';
+import HeadingOne from './icons/headingOne';
+import HeadingThree from './icons/headingThree';
+import HeadingTwo from './icons/headingTwo';
+import ImageIcon from './icons/image';
 import ItalicIcon from './icons/italic';
+import LinkIcon from './icons/Link';
+import QutoeIcon from './icons/quote';
 
 export default function formattingMenuItems(
 	state: EditorState,
@@ -43,20 +49,13 @@ export default function formattingMenuItems(
 			active: isMarkActive(schema.marks.em)
 		},
 		{
-			name: 'mark',
-			tooltip: dictionary.mark,
-			icon: HighlightIcon,
-			active: isMarkActive(schema.marks.mark),
-			visible: !isTemplate
-		},
-		{
 			name: 'separator',
 			visible: allowBlocks
 		},
 		{
 			name: 'heading',
 			tooltip: dictionary.heading,
-			icon: Heading1Icon,
+			icon: HeadingOne,
 			active: isNodeActive(schema.nodes.heading, { level: 1 }),
 			attrs: { level: 1 },
 			visible: allowBlocks
@@ -64,21 +63,36 @@ export default function formattingMenuItems(
 		{
 			name: 'heading',
 			tooltip: dictionary.subheading,
-			icon: Heading2Icon,
+			icon: HeadingTwo,
 			active: isNodeActive(schema.nodes.heading, { level: 2 }),
 			attrs: { level: 2 },
 			visible: allowBlocks
 		},
 		{
+			name: 'heading',
+			tooltip: dictionary.subheading,
+			icon: HeadingThree,
+			active: isNodeActive(schema.nodes.heading, { level: 3 }),
+			attrs: { level: 3 },
+			visible: allowBlocks
+		},
+		{
 			name: 'blockquote',
 			tooltip: dictionary.quote,
-			icon: BlockQuoteIcon,
+			icon: QutoeIcon,
 			active: isNodeActive(schema.nodes.blockquote),
 			attrs: { level: 2 },
 			visible: allowBlocks
 		},
 		{
 			name: 'separator'
+		},
+		{
+			name: 'image',
+			tooltip: dictionary.addImage,
+			icon: ImageIcon,
+			active: isMarkActive(schema.marks.link),
+			attrs: { href: '' }
 		},
 		{
 			name: 'link',

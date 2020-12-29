@@ -9,7 +9,6 @@ import { MarkSpec, NodeSpec, Schema, Slice } from 'prosemirror-model';
 import { EditorState, Plugin, Selection } from 'prosemirror-state';
 import { selectColumn, selectRow, selectTable } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-/* global window File Promise */
 import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
@@ -24,11 +23,9 @@ import ExtensionManager from './lib/ExtensionManager';
 import headingToSlug from './lib/headingToSlug';
 // marks
 import Bold from './marks/Bold';
-import Highlight from './marks/Highlight';
 import Italic from './marks/Italic';
 import Link from './marks/Link';
 import TemplatePlaceholder from './marks/Placeholder';
-import Underline from './marks/Underline';
 import Blockquote from './nodes/Blockquote';
 import BulletList from './nodes/BulletList';
 import Doc from './nodes/Doc';
@@ -38,7 +35,6 @@ import Heading from './nodes/Heading';
 import HorizontalRule from './nodes/HorizontalRule';
 import Image from './nodes/Image';
 import ListItem from './nodes/ListItem';
-import Notice from './nodes/Notice';
 import OrderedList from './nodes/OrderedList';
 import Paragraph from './nodes/Paragraph';
 // nodes
@@ -49,7 +45,6 @@ import History from './plugins/History';
 import Keys from './plugins/Keys';
 import MarkdownPaste from './plugins/MarkdownPaste';
 import Placeholder from './plugins/Placeholder';
-import SmartText from './plugins/SmartText';
 import TrailingNode from './plugins/TrailingNode';
 import { dark as darkTheme, light as lightTheme } from './theme';
 import { EmbedDescriptor, ToastType } from './types';
@@ -215,9 +210,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 				new BulletList(),
 				new Embed(),
 				new ListItem(),
-				new Notice({
-					dictionary
-				}),
 				new Heading({
 					dictionary,
 					onShowToast: this.props.onShowToast,
@@ -232,19 +224,15 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 					onShowToast: this.props.onShowToast
 				}),
 				new Bold(),
-				new Highlight(),
 				new Italic(),
 				new TemplatePlaceholder(),
-				new Underline(),
 				new Link({
-					onKeyboardShortcut: this.handleOpenLinkMenu,
 					onClickLink: this.props.onClickLink,
 					onClickHashtag: this.props.onClickHashtag,
 					onHoverLink: this.props.onHoverLink
 				}),
 				new OrderedList(),
 				new History(),
-				new SmartText(),
 				new TrailingNode(),
 				new MarkdownPaste(),
 				new Keys({
@@ -434,14 +422,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 		if (onSave) {
 			onSave({ done: true });
 		}
-	};
-
-	handleOpenLinkMenu = () => {
-		this.setState({ linkMenuOpen: true });
-	};
-
-	handleCloseLinkMenu = () => {
-		this.setState({ linkMenuOpen: false });
 	};
 
 	handleSelectRow = (index: number, state: EditorState) => {
@@ -673,29 +653,6 @@ const StyledEditor = styled('div')<{
 		}
 	}
 
-	h1:not(.placeholder):before {
-		content: 'H1';
-		line-height: 3em;
-	}
-	h2:not(.placeholder):before {
-		content: 'H2';
-		line-height: 2.8em;
-	}
-	h3:not(.placeholder):before {
-		content: 'H3';
-		line-height: 2.3em;
-	}
-	h4:not(.placeholder):before {
-		content: 'H4';
-		line-height: 2.2em;
-	}
-	h5:not(.placeholder):before {
-		content: 'H5';
-	}
-	h6:not(.placeholder):before {
-		content: 'H6';
-	}
-
 	.with-emoji {
 		margin-left: -1em;
 	}
@@ -883,7 +840,6 @@ const StyledEditor = styled('div')<{
 	mark {
 		border-radius: 1px;
 		color: ${props => props.theme.black};
-		background: ${props => props.theme.textHighlight};
 	}
 
 	.code-block,

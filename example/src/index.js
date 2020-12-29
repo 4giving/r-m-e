@@ -97,7 +97,7 @@ class Example extends React.Component {
 
 	handleChange = debounce(value => {
 		const text = value();
-		console.log(text);
+		// console.log(text);
 		localStorage.setItem('saved', text);
 	}, 250);
 
@@ -126,8 +126,6 @@ class Example extends React.Component {
 				<br />
 				<Editor
 					id="example"
-					readOnly={this.state.readOnly}
-					readOnlyWriteCheckboxes
 					value={this.state.value}
 					template={this.state.template}
 					defaultValue={defaultValue}
@@ -147,39 +145,6 @@ class Example extends React.Component {
 						return false;
 					}}
 					onClickHashtag={(tag, event) => console.log('Clicked hashtag: ', tag, event)}
-					onCreateLink={title => {
-						// Delay to simulate time taken for remote API request to complete
-						return new Promise((resolve, reject) => {
-							setTimeout(() => {
-								if (title !== 'error') {
-									return resolve(`/doc/${encodeURIComponent(title.toLowerCase())}`);
-								} else {
-									reject('500 error');
-								}
-							}, 1500);
-						});
-					}}
-					onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
-					onSearchLink={async term => {
-						console.log('Searched link: ', term);
-
-						// Delay to simulate time taken for remote API request to complete
-						return new Promise(resolve => {
-							setTimeout(() => {
-								resolve(
-									docSearchResults.filter(result => result.title.toLowerCase().includes(term.toLowerCase()))
-								);
-							}, Math.random() * 500);
-						});
-					}}
-					uploadImage={file => {
-						console.log('File upload triggered: ', file);
-
-						// Delay to simulate time taken to upload
-						return new Promise(resolve => {
-							setTimeout(() => resolve('https://picsum.photos/600/600'), 1500);
-						});
-					}}
 					embeds={[
 						{
 							title: 'YouTube',
@@ -199,7 +164,6 @@ class Example extends React.Component {
 							component: YoutubeEmbed
 						}
 					]}
-					dark={this.state.dark}
 					autoFocus
 				/>
 			</div>

@@ -1,24 +1,13 @@
-import assert from 'assert';
-
-import { some } from 'lodash';
 import { EditorView } from 'prosemirror-view';
 import * as React from 'react';
-import { Portal } from 'react-portal';
 import styled from 'styled-components';
 
-import createAndInsertLink from '../commands/createAndInsertLink';
 import baseDictionary from '../dictionary';
 import getFormattingMenuItems from '../menus/formatting';
-import getTableMenuItems from '../menus/table';
-import getTableColMenuItems from '../menus/tableCol';
-import getTableRowMenuItems from '../menus/tableRow';
-import getColumnIndex from '../queries/getColumnIndex';
 import getMarkRange from '../queries/getMarkRange';
-import getRowIndex from '../queries/getRowIndex';
 import isMarkActive from '../queries/isMarkActive';
 import isNodeActive from '../queries/isNodeActive';
 import { MenuItem } from '../types';
-import FloatingToolbar from './FloatingToolbar';
 import LinkEditor, { SearchResult } from './LinkEditor';
 import Menu from './Menu';
 
@@ -34,46 +23,7 @@ type Props = {
 	view: EditorView;
 };
 
-function isActive(props) {
-	const { view } = props;
-	const { selection } = view.state;
-
-	if (!selection) return false;
-	if (selection.empty) return false;
-	if (selection.node) return false;
-
-	const slice = selection.content();
-	const fragment = slice.content;
-	const nodes = fragment.content;
-
-	return some(nodes, n => n.content.size);
-}
-
 export default class SelectionToolbar extends React.Component<Props> {
-	handleOnCreateLink = async (title: string) => {
-		const { dictionary, onCreateLink, view, onShowToast } = this.props;
-
-		if (!onCreateLink) {
-			return;
-		}
-
-		const { dispatch, state } = view;
-		const { from, to } = state.selection;
-		assert(from !== to);
-
-		const href = `creating#${title}…`;
-		const markType = state.schema.marks.link;
-
-		// Insert a placeholder link
-		dispatch(view.state.tr.removeMark(from, to, markType).addMark(from, to, markType.create({ href })));
-
-		createAndInsertLink(view, title, href, {
-			onCreateLink,
-			onShowToast,
-			dictionary
-		});
-	};
-
 	handleOnSelectLink = ({ href, from, to }: { href: string; from: number; to: number }): void => {
 		const { view } = this.props;
 		const { state, dispatch } = view;
@@ -112,7 +62,6 @@ export default class SelectionToolbar extends React.Component<Props> {
 						mark={range.mark}
 						from={range.from}
 						to={range.to}
-						onCreateLink={onCreateLink ? this.handleOnCreateLink : undefined}
 						onSelectLink={this.handleOnSelectLink}
 						{...rest}
 					/>

@@ -1,13 +1,6 @@
 export const base = {
-	addColumnAfter: 'Insert column after',
-	addColumnBefore: 'Insert column before',
-	addRowAfter: 'Insert row after',
-	addRowBefore: 'Insert row before',
-	alignCenter: 'Align center',
-	alignLeft: 'Align left',
-	alignRight: 'Align right',
+	addImage: 'Add Image',
 	bulletList: 'Bulleted list',
-	codeCopied: 'Copied to clipboard',
 	createLink: 'Create link',
 	createLinkError: 'Sorry, an error occurred creating the link',
 	createNewDoc: 'Create a new doc',
@@ -28,7 +21,6 @@ export const base = {
 	infoNotice: 'Info notice',
 	link: 'Link',
 	linkCopied: 'Link copied to clipboard',
-	mark: 'Highlight',
 	newLineEmpty: "Type '/' to insert…",
 	newLineWithSlash: 'Keep typing to filter…',
 	noResults: 'No results',
@@ -44,9 +36,7 @@ export const base = {
 	subheading: 'Subheading',
 	table: 'Table',
 	tip: 'Tip',
-	tipNotice: 'Tip notice',
-	warning: 'Warning',
-	warningNotice: 'Warning notice'
+	warning: 'Warning'
 };
 
 export default base;

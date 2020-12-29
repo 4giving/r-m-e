@@ -40,12 +40,7 @@ export default class Heading extends Node {
 				contentElement: 'span'
 			})),
 			toDOM: node => {
-				const button = document.createElement('button');
-				button.innerText = '#';
-				button.type = 'button';
-				button.className = 'heading-anchor';
-
-				return [`h${node.attrs.level + (this.options.offset || 0)}`, button, ['span', 0]];
+				return [`h${node.attrs.level + (this.options.offset || 0)}`, 0];
 			}
 		};
 	}
