@@ -11,7 +11,6 @@ import {
 	OrderedListIcon,
 	StarredIcon,
 	TableIcon,
-	TodoListIcon,
 	WarningIcon
 } from 'outline-icons';
 
@@ -50,13 +49,6 @@ export default function blockMenuItems(dictionary: typeof baseDictionary): MenuI
 		},
 		{
 			name: 'separator'
-		},
-		{
-			name: 'checkbox_list',
-			title: dictionary.checkboxList,
-			icon: TodoListIcon,
-			keywords: 'checklist checkbox task',
-			shortcut: '^ ⇧ 7'
 		},
 		{
 			name: 'bullet_list',

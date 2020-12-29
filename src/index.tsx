@@ -24,17 +24,13 @@ import ExtensionManager from './lib/ExtensionManager';
 import headingToSlug from './lib/headingToSlug';
 // marks
 import Bold from './marks/Bold';
-import Code from './marks/Code';
 import Highlight from './marks/Highlight';
 import Italic from './marks/Italic';
 import Link from './marks/Link';
 import TemplatePlaceholder from './marks/Placeholder';
-import Strikethrough from './marks/Strikethrough';
 import Underline from './marks/Underline';
 import Blockquote from './nodes/Blockquote';
 import BulletList from './nodes/BulletList';
-import CheckboxItem from './nodes/CheckboxItem';
-import CheckboxList from './nodes/CheckboxList';
 import Doc from './nodes/Doc';
 import Embed from './nodes/Embed';
 import HardBreak from './nodes/HardBreak';
@@ -216,8 +212,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 				new HardBreak(),
 				new Paragraph(),
 				new Blockquote(),
-				new CheckboxList(),
-				new CheckboxItem(),
 				new BulletList(),
 				new Embed(),
 				new ListItem(),
@@ -238,7 +232,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 					onShowToast: this.props.onShowToast
 				}),
 				new Bold(),
-				new Code(),
 				new Highlight(),
 				new Italic(),
 				new TemplatePlaceholder(),
@@ -249,7 +242,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 					onClickHashtag: this.props.onClickHashtag,
 					onHoverLink: this.props.onHoverLink
 				}),
-				new Strikethrough(),
 				new OrderedList(),
 				new History(),
 				new SmartText(),

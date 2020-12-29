@@ -1,15 +1,5 @@
-import {
-	BlockQuoteIcon,
-	CodeIcon,
-	Heading1Icon,
-	Heading2Icon,
-	HighlightIcon,
-	InputIcon,
-	LinkIcon,
-	StrikethroughIcon
-} from 'outline-icons';
+import { BlockQuoteIcon, Heading1Icon, Heading2Icon, HighlightIcon, InputIcon, LinkIcon } from 'outline-icons';
 import { EditorState } from 'prosemirror-state';
-import { isInTable } from 'prosemirror-tables';
 
 import baseDictionary from '../dictionary';
 import isInList from '../queries/isInList';
@@ -25,9 +15,8 @@ export default function formattingMenuItems(
 	dictionary: typeof baseDictionary
 ): MenuItem[] {
 	const { schema } = state;
-	const isTable = isInTable(state);
 	const isList = isInList(state);
-	const allowBlocks = !isTable && !isList;
+	const allowBlocks = !isList;
 
 	return [
 		{
@@ -54,23 +43,11 @@ export default function formattingMenuItems(
 			active: isMarkActive(schema.marks.em)
 		},
 		{
-			name: 'strikethrough',
-			tooltip: dictionary.strikethrough,
-			icon: StrikethroughIcon,
-			active: isMarkActive(schema.marks.strikethrough)
-		},
-		{
 			name: 'mark',
 			tooltip: dictionary.mark,
 			icon: HighlightIcon,
 			active: isMarkActive(schema.marks.mark),
 			visible: !isTemplate
-		},
-		{
-			name: 'code_inline',
-			tooltip: dictionary.codeInline,
-			icon: CodeIcon,
-			active: isMarkActive(schema.marks.code_inline)
 		},
 		{
 			name: 'separator',
