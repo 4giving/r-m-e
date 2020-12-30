@@ -22,12 +22,12 @@ class Menu extends React.Component<Props> {
 		const Tooltip = this.props.tooltip;
 
 		return (
-			<div>
+			<>
 				{items.map((item, index) => {
 					if (item.name === 'separator' && item.visible !== false) {
 						return <ToolbarSeparator key={index} />;
 					}
-					if (item.visible === false || !item.icon) {
+					if (!item.icon) {
 						return null;
 					}
 					const Icon = item.icon;
@@ -35,6 +35,7 @@ class Menu extends React.Component<Props> {
 
 					return (
 						<ToolbarButton
+							disabled={Boolean(item.visible === false)}
 							key={index}
 							onClick={() => item.name && this.props.commands[item.name](item.attrs)}
 							active={isActive}
@@ -45,7 +46,7 @@ class Menu extends React.Component<Props> {
 						</ToolbarButton>
 					);
 				})}
-			</div>
+			</>
 		);
 	}
 }

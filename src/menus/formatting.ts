@@ -10,7 +10,7 @@ import HeadingOne from './icons/headingOne';
 import HeadingThree from './icons/headingThree';
 import HeadingTwo from './icons/headingTwo';
 import ImageIcon from './icons/image';
-import InputIcon from './icons/input';
+// import InputIcon from './icons/input';
 import ItalicIcon from './icons/italic';
 import LinkIcon from './icons/link';
 import QuoteIcon from './icons/quote';
@@ -25,17 +25,17 @@ export default function formattingMenuItems(
 	const allowBlocks = !isList;
 
 	return [
-		{
-			name: 'placeholder',
-			tooltip: dictionary.placeholder,
-			icon: InputIcon,
-			active: isMarkActive(schema.marks.placeholder),
-			visible: isTemplate
-		},
-		{
-			name: 'separator',
-			visible: isTemplate
-		},
+		// {
+		// 	name: 'placeholder',
+		// 	tooltip: dictionary.placeholder,
+		// 	icon: InputIcon,
+		// 	active: isMarkActive(schema.marks.placeholder),
+		// 	visible: isTemplate
+		// },
+		// {
+		// 	name: 'separator',
+		// 	visible: isTemplate
+		// },
 		{
 			name: 'strong',
 			tooltip: dictionary.strong,
@@ -48,10 +48,10 @@ export default function formattingMenuItems(
 			icon: ItalicIcon,
 			active: isMarkActive(schema.marks.em)
 		},
-		{
-			name: 'separator',
-			visible: allowBlocks
-		},
+		// {
+		// 	name: 'separator',
+		// 	visible: allowBlocks
+		// },
 		{
 			name: 'heading',
 			tooltip: dictionary.heading,
@@ -84,9 +84,9 @@ export default function formattingMenuItems(
 			attrs: { level: 2 },
 			visible: allowBlocks
 		},
-		{
-			name: 'separator'
-		},
+		// {
+		// 	name: 'separator'
+		// },
 		{
 			name: 'image',
 			tooltip: dictionary.addImage,
