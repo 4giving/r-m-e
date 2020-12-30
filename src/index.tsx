@@ -67,8 +67,6 @@ import TrailingNode from './plugins/TrailingNode';
 import { dark as darkTheme, light as lightTheme } from './theme';
 import { EmbedDescriptor, ToastType } from './types';
 
-export { schema, parser, serializer } from './server';
-
 export { default as Extension } from './lib/Extension';
 
 export const theme = lightTheme;

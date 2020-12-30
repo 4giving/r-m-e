@@ -22,7 +22,7 @@ class Menu extends React.Component<Props> {
 		const Tooltip = this.props.tooltip;
 
 		return (
-			<div>
+			<>
 				{items.map((item, index) => {
 					if (item.name === 'separator' && item.visible !== false) {
 						return <ToolbarSeparator key={index} />;
@@ -45,7 +45,7 @@ class Menu extends React.Component<Props> {
 						</ToolbarButton>
 					);
 				})}
-			</div>
+			</>
 		);
 	}
 }
