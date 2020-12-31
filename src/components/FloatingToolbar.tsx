@@ -4,8 +4,6 @@ import { Portal } from 'react-portal';
 import ResizeObserver from 'resize-observer-polyfill';
 import styled from 'styled-components';
 
-const SSR = typeof window === 'undefined';
-
 type Props = {
 	active?: boolean;
 	view: EditorView;
@@ -47,7 +45,7 @@ function usePosition({ menuRef, isSelectingText, props }) {
 	const { selection } = view.state;
 	const { width: menuWidth, height: menuHeight } = useComponentSize(menuRef);
 
-	if (!active || !menuWidth || !menuHeight || SSR || isSelectingText) {
+	if (!active || !menuWidth || !menuHeight || isSelectingText) {
 		return defaultPosition;
 	}
 
