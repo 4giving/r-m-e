@@ -1,6 +1,6 @@
-[![npm version](https://badge.fury.io/js/r-m-e.svg)](https://badge.fury.io/js/r-m-e) [![CircleCI](https://img.shields.io/circleci/project/github/outline/r-m-e.svg)](https://circleci.com/gh/outline/r-m-e) [![Formatted with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier) [![TypeScript](https://camo.githubusercontent.com/21132e0838961fbecb75077042aa9b15bc0bf6f9/68747470733a2f2f62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/) [![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/outline)
+[![npm version](https://badge.fury.io/js/@4giving/r-m-e.svg)](https://badge.fury.io/js/@4giving/r-m-e) [![CircleCI](https://img.shields.io/circleci/project/github/outline/@4giving/r-m-e.svg)](https://circleci.com/gh/outline/@4giving/r-m-e) [![Formatted with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier) [![TypeScript](https://camo.githubusercontent.com/21132e0838961fbecb75077042aa9b15bc0bf6f9/68747470733a2f2f62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/) [![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/outline)
 
-# r-m-e
+# @4giving/r-m-e
 
 This is a modified clone of [Rich Markdown Editor](https://github.com/outline/rich-markdown-editor).
 
@@ -9,13 +9,13 @@ This is a modified clone of [Rich Markdown Editor](https://github.com/outline/ri
 ### Install
 
 ```bash
-yarn add r-m-e
+yarn add @4giving/r-m-e
 ```
 
 or
 
 ```bash
-npm install r-m-e
+npm install @4giving/r-m-e
 ```
 
 Note that `react`, `react-dom`, and `styled-components` are _required_ peer dependencies.
@@ -23,7 +23,7 @@ Note that `react`, `react-dom`, and `styled-components` are _required_ peer depe
 ### Import
 
 ```javascript
-import Editor from 'r-m-e';
+import Editor from '@4giving/r-m-e';
 
 <Editor defaultValue="Hello world!" />;
 ```
