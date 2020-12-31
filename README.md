@@ -1,4 +1,4 @@
-[![npm version](https://badge.fury.io/js/@4giving/r-m-e.svg)](https://badge.fury.io/js/@4giving/r-m-e) [![CircleCI](https://img.shields.io/circleci/project/github/outline/@4giving/r-m-e.svg)](https://circleci.com/gh/outline/@4giving/r-m-e) [![Formatted with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier) [![TypeScript](https://camo.githubusercontent.com/21132e0838961fbecb75077042aa9b15bc0bf6f9/68747470733a2f2f62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/)
+[![npm version](https://badge.fury.io/js/%404giving%2Fr-m-e.svg)](https://badge.fury.io/js/%404giving%2Fr-m-e) [![Formatted with Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)](https://github.com/prettier/prettier) [![TypeScript](https://camo.githubusercontent.com/21132e0838961fbecb75077042aa9b15bc0bf6f9/68747470733a2f2f62616467656e2e6e65742f62616467652f4275696c74253230576974682f547970655363726970742f626c7565)](https://www.typescriptlang.org/)
 
 # @4giving/r-m-e
 
