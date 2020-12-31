@@ -1,11 +1,10 @@
 {
-  "name": "rich-markdown-editor",
+  "name": "r-m-e",
   "description": "A rich text editor with Markdown shortcuts",
-  "version": "11.0.11",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "BSD-3-Clause",
-  "funding": "https://github.com/sponsors/outline",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet",
@@ -95,17 +94,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/outline/rich-markdown-editor.git"
+    "url": "git+https://github.com/4giving/r-m-e.git"
   },
-  "keywords": [
-    "editor",
-    "markdown",
-    "text",
-    "wysiwyg"
-  ],
   "author": "Tom Moor <tom.moor@gmail.com>",
+  "contributors": [
+    {
+      "name": "Pete",
+      "url": "https://github.com/petrogad"
+    }
+  ],
   "bugs": {
-    "url": "https://github.com/outline/rich-markdown-editor/issues"
+    "url": "https://github.com/4giving/r-m-e/issues"
   },
-  "homepage": "https://github.com/outline/rich-markdown-editor#readme"
+  "homepage": "https://github.com/4giving/r-m-e#readme"
 }
