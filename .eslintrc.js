@@ -29,6 +29,7 @@ module.exports = {
 	},
 	plugins: ['@typescript-eslint', 'react'],
 	rules: {
+		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/camelcase': 0,
 		'@typescript-eslint/no-angle-bracket-type-assertion': 0,
 		'@typescript-eslint/no-explicit-any': 0,
@@ -47,7 +48,6 @@ module.exports = {
 			// enable the rule specifically for TypeScript files
 			files: ['*.ts', '*.tsx'],
 			rules: {
-				'@typescript-eslint/explicit-function-return-type': ['error'],
 				'@typescript-eslint/no-unused-vars': ['error']
 			}
 		}
