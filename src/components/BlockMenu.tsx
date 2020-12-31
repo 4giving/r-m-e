@@ -421,7 +421,7 @@ const LinkInputWrapper = styled.div`
 	margin: 8px;
 `;
 
-const LinkInput = styled(Input)`
+const LinkInput = styled(Input as any)`
 	height: 36px;
 	width: 100%;
 	color: ${props => props.theme.blockToolbarText};
