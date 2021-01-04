@@ -5,14 +5,11 @@ import * as React from 'react';
 import { Portal } from 'react-portal';
 import styled from 'styled-components';
 
-import insertFiles from '../commands/insertFiles';
 import baseDictionary from '../dictionary';
-import getDataTransferFiles from '../lib/getDataTransferFiles';
 import getMenuItems from '../menus/block';
 import { EmbedDescriptor, MenuItem, ToastType } from '../types';
 import BlockMenuItem from './BlockMenuItem';
 import Input from './Input';
-import VisuallyHidden from './VisuallyHidden';
 
 type Props = {
 	isActive: boolean;
@@ -27,6 +24,8 @@ type Props = {
 	onLinkToolbarOpen: () => void;
 	onClose: () => void;
 	embeds: EmbedDescriptor[];
+
+	toggleImageUploader?: (string) => void;
 };
 
 type State = {
@@ -207,40 +206,27 @@ class BlockMenu extends React.Component<Props, State> {
 		}
 	};
 
-	triggerImagePick = () => {
-		if (this.inputRef.current) {
-			this.inputRef.current.click();
-		}
-	};
-
 	triggerLinkInput = item => {
 		this.setState({ insertItem: item });
 	};
 
-	handleImagePicked = event => {
-		const files = getDataTransferFiles(event);
-
-		const { view, uploadImage, onImageUploadStart, onImageUploadStop, onShowToast } = this.props;
+	handleImagePickedURL = (url: string) => {
+		const { view } = this.props;
 		const { state, dispatch } = view;
 		const parent = findParentNode(node => !!node)(state.selection);
 
+		const { schema } = view.state;
 		if (parent) {
-			dispatch(state.tr.insertText('', parent.pos, parent.pos + parent.node.textContent.length + 1));
-
-			insertFiles(view, event, parent.pos, files, {
-				uploadImage,
-				onImageUploadStart,
-				onImageUploadStop,
-				onShowToast,
-				dictionary: this.props.dictionary
-			});
-		}
-
-		if (this.inputRef.current) {
-			this.inputRef.current.value = '';
+			dispatch(state.tr.insert(parent.pos, schema.nodes.image.create({ src: url })));
 		}
 
 		this.props.onClose();
+	};
+
+	triggerImagePick = () => {
+		if (this.props.toggleImageUploader) {
+			this.props.toggleImageUploader(this.handleImagePickedURL);
+		}
 	};
 
 	clearSearch() {
@@ -352,7 +338,7 @@ class BlockMenu extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { dictionary, isActive, uploadImage } = this.props;
+		const { dictionary, isActive } = this.props;
 		const items = this.filtered;
 		const { insertItem, ...positioning } = this.state;
 
@@ -403,11 +389,6 @@ class BlockMenu extends React.Component<Props, State> {
 								</ListItem>
 							)}
 						</List>
-					)}
-					{uploadImage && (
-						<VisuallyHidden>
-							<input type="file" ref={this.inputRef} onChange={this.handleImagePicked} accept="image/*" />
-						</VisuallyHidden>
 					)}
 				</Wrapper>
 			</Portal>

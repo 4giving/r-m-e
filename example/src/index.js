@@ -109,13 +109,9 @@ class Example extends React.Component {
 						return false;
 					}}
 					onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
-					uploadImage={file => {
-						console.log('File upload triggered: ', file);
-
-						// Delay to simulate time taken to upload
-						return new Promise(resolve => {
-							setTimeout(() => resolve('https://picsum.photos/600/600'), 1500);
-						});
+					toggleImageUploader={handler => {
+						console.log('toggled');
+						handler('https://picsum.photos/600/600');
 					}}
 					embeds={[
 						{

@@ -94,6 +94,8 @@ export type Props = {
 	tooltip: typeof React.Component | React.FC<any>;
 	className?: string;
 	style?: Record<string, string>;
+
+	toggleImageUploader?(t: string): void;
 };
 
 type State = {
@@ -223,10 +225,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 				new HorizontalRule(),
 				new Image({
 					dictionary,
-					uploadImage: this.props.uploadImage,
-					onImageUploadStart: this.props.onImageUploadStart,
-					onImageUploadStop: this.props.onImageUploadStop,
-					onShowToast: this.props.onShowToast
+					uploadImage: this.props.uploadImage
 				}),
 				new Bold(),
 				new Code(),
@@ -545,6 +544,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									tooltip={tooltip}
 								/>
 								<BlockMenu
+									toggleImageUploader={this.props.toggleImageUploader}
 									view={this.view}
 									commands={this.commands}
 									dictionary={dictionary}
