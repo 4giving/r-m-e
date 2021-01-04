@@ -62,21 +62,6 @@ function usePosition({ menuRef, isSelectingText, props }) {
 		right: Math.max(fromPos.right, toPos.right)
 	};
 
-	// tables are an oddity, and need their own positioning logic
-	const isColSelection = selection.isColSelection && selection.isColSelection();
-	const isRowSelection = selection.isRowSelection && selection.isRowSelection();
-
-	if (isColSelection) {
-		const { node: element } = view.domAtPos(selection.$from.pos);
-		const { width } = element.getBoundingClientRect();
-		selectionBounds.top -= 20;
-		selectionBounds.right = selectionBounds.left + width;
-	}
-
-	if (isRowSelection) {
-		selectionBounds.right = selectionBounds.left = selectionBounds.left - 18;
-	}
-
 	// calcluate the horizontal center of the selection
 	const halfSelection = Math.abs(selectionBounds.right - selectionBounds.left) / 2;
 	const centerOfSelection = selectionBounds.left + halfSelection;

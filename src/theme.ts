@@ -48,14 +48,7 @@ export const base = {
 	blockToolbarItem: colors.almostBlack,
 	blockToolbarText: colors.almostBlack,
 	blockToolbarHoverBackground: colors.greyLight,
-	blockToolbarDivider: colors.greyMid,
-
-	noticeInfoBackground: '#F5BE31',
-	noticeInfoText: colors.almostBlack,
-	noticeTipBackground: '#9E5CF7',
-	noticeTipText: colors.white,
-	noticeWarningBackground: '#FF5C80',
-	noticeWarningText: colors.white
+	blockToolbarDivider: colors.greyMid
 };
 
 export const light = {
@@ -70,10 +63,6 @@ export const light = {
 	toolbarHoverBackground: colors.black,
 	toolbarInput: colors.white10,
 	toolbarItem: '#A9A59C',
-
-	tableDivider: colors.greyMid,
-	tableSelected: colors.primary,
-	tableSelectedBackground: '#E5F7FF',
 
 	quote: colors.greyDark,
 	codeBackground: colors.greyLight,
@@ -98,10 +87,6 @@ export const dark = {
 	toolbarHoverBackground: colors.greyMid,
 	toolbarInput: colors.black10,
 	toolbarItem: colors.lightBlack,
-
-	tableDivider: colors.lightBlack,
-	tableSelected: colors.primary,
-	tableSelectedBackground: '#002333',
 
 	quote: colors.greyDark,
 	codeBackground: colors.black,
