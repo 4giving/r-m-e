@@ -289,7 +289,7 @@ class BlockMenu extends React.Component<Props, State> {
 	}
 
 	get filtered() {
-		const { dictionary, embeds, search = '', uploadImage } = this.props;
+		const { dictionary, embeds, search = '', insertImageHandler } = this.props;
 		let items: (EmbedDescriptor | MenuItem)[] = getMenuItems(dictionary);
 		const embedItems: EmbedDescriptor[] = [];
 
@@ -313,7 +313,7 @@ class BlockMenu extends React.Component<Props, State> {
 			if (item.name === 'separator') return true;
 
 			// If no image upload callback has been passed, filter the image block out
-			if (!uploadImage && item.name === 'image') return false;
+			if (!insertImageHandler && item.name === 'image') return false;
 
 			const n = search.toLowerCase();
 			return (item.title || '').toLowerCase().includes(n) || (item.keywords || '').toLowerCase().includes(n);
