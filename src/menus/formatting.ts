@@ -56,13 +56,6 @@ export default function formattingMenuItems(state: EditorState, dictionary: type
 			visible: allowBlocks
 		},
 		{
-			name: 'image',
-			tooltip: dictionary.addImage,
-			icon: ImageIcon,
-			active: isMarkActive(schema.marks.link),
-			attrs: { href: '' }
-		},
-		{
 			name: 'link',
 			tooltip: dictionary.createLink,
 			icon: LinkIcon,

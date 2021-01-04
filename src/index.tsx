@@ -837,120 +837,12 @@ const StyledEditor = styled('div')<{
 		background: ${props => props.theme.textHighlight};
 	}
 
-	pre {
-		display: block;
-		overflow-x: auto;
-		padding: 0.75em 1em;
-		line-height: 1.4em;
-		position: relative;
-		background: ${props => props.theme.codeBackground};
-		border-radius: 4px;
-		border: 1px solid ${props => props.theme.codeBorder};
-
-		-webkit-font-smoothing: initial;
-		font-family: ${props => props.theme.fontFamilyMono};
-		font-size: 13px;
-		direction: ltr;
-		text-align: left;
-		white-space: pre;
-		word-spacing: normal;
-		word-break: normal;
-		-moz-tab-size: 4;
-		-o-tab-size: 4;
-		tab-size: 4;
-		-webkit-hyphens: none;
-		-moz-hyphens: none;
-		-ms-hyphens: none;
-		hyphens: none;
-		color: ${props => props.theme.code};
-		margin: 0;
-
-		code {
-			font-size: 13px;
-			background: none;
-			padding: 0;
-			border: 0;
-		}
-	}
-
-	.token.comment,
-	.token.prolog,
-	.token.doctype,
-	.token.cdata {
-		color: ${props => props.theme.codeComment};
-	}
-
-	.token.punctuation {
-		color: ${props => props.theme.codePunctuation};
-	}
-
 	.token.namespace {
 		opacity: 0.7;
 	}
 
-	.token.operator,
-	.token.boolean,
-	.token.number {
-		color: ${props => props.theme.codeNumber};
-	}
-
-	.token.property {
-		color: ${props => props.theme.codeProperty};
-	}
-
-	.token.tag {
-		color: ${props => props.theme.codeTag};
-	}
-
-	.token.string {
-		color: ${props => props.theme.codeString};
-	}
-
-	.token.selector {
-		color: ${props => props.theme.codeSelector};
-	}
-
-	.token.attr-name {
-		color: ${props => props.theme.codeAttr};
-	}
-
-	.token.entity,
-	.token.url,
-	.language-css .token.string,
-	.style .token.string {
-		color: ${props => props.theme.codeEntity};
-	}
-
-	.token.attr-value,
-	.token.keyword,
-	.token.control,
-	.token.directive,
-	.token.unit {
-		color: ${props => props.theme.codeKeyword};
-	}
-
-	.token.function {
-		color: ${props => props.theme.codeFunction};
-	}
-
-	.token.statement,
-	.token.regex,
-	.token.atrule {
-		color: ${props => props.theme.codeStatement};
-	}
-
-	.token.placeholder,
-	.token.variable {
-		color: ${props => props.theme.codePlaceholder};
-	}
-
 	.token.deleted {
 		text-decoration: line-through;
-	}
-
-	.token.inserted {
-		border-bottom: 1px dotted ${props => props.theme.codeInserted};
-		text-decoration: none;
 	}
 
 	.token.italic {
@@ -960,10 +852,6 @@ const StyledEditor = styled('div')<{
 	.token.important,
 	.token.bold {
 		font-weight: bold;
-	}
-
-	.token.important {
-		color: ${props => props.theme.codeImportant};
 	}
 
 	.token.entity {
@@ -1051,9 +939,9 @@ const StyledEditor = styled('div')<{
 
 		&:hover,
 		&:focus {
+			background-color: ${props => props.theme.primary};
 			cursor: pointer;
-
-			color: ${props => props.theme.text};
+			color: #fff;
 		}
 	}
 
