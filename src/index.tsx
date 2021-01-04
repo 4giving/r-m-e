@@ -95,7 +95,7 @@ export type Props = {
 	className?: string;
 	style?: Record<string, string>;
 
-	toggleImageUploader?(t: string): void;
+	insertImageHandler?(t: string): void;
 };
 
 type State = {
@@ -544,7 +544,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									tooltip={tooltip}
 								/>
 								<BlockMenu
-									toggleImageUploader={this.props.toggleImageUploader}
+									insertImageHandler={this.props.insertImageHandler}
 									view={this.view}
 									commands={this.commands}
 									dictionary={dictionary}

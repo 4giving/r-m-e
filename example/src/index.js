@@ -109,8 +109,7 @@ class Example extends React.Component {
 						return false;
 					}}
 					onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
-					toggleImageUploader={handler => {
-						console.log('toggled');
+					insertImageHandler={handler => {
 						handler('https://picsum.photos/600/600');
 					}}
 					embeds={[

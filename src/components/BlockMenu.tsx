@@ -25,7 +25,7 @@ type Props = {
 	onClose: () => void;
 	embeds: EmbedDescriptor[];
 
-	toggleImageUploader?: (string) => void;
+	insertImageHandler?: (string) => void;
 };
 
 type State = {
@@ -224,8 +224,8 @@ class BlockMenu extends React.Component<Props, State> {
 	};
 
 	triggerImagePick = () => {
-		if (this.props.toggleImageUploader) {
-			this.props.toggleImageUploader(this.handleImagePickedURL);
+		if (this.props.insertImageHandler) {
+			this.props.insertImageHandler(this.handleImagePickedURL);
 		}
 	};
 
