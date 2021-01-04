@@ -13,7 +13,7 @@ import isMarkActive from '../queries/isMarkActive';
 import isNodeActive from '../queries/isNodeActive';
 import { MenuItem } from '../types';
 import FloatingToolbar from './FloatingToolbar';
-import LinkEditor, { SearchResult } from './LinkEditor';
+import LinkEditor from './LinkEditor';
 import Menu from './Menu';
 
 type Props = {
@@ -21,7 +21,6 @@ type Props = {
 	tooltip: typeof React.Component | React.FC<any>;
 	isTemplate: boolean;
 	commands: Record<string, any>;
-	onSearchLink?: (term: string) => Promise<SearchResult[]>;
 	onClickLink: (href: string, event: MouseEvent) => void;
 	onCreateLink?: (title: string) => Promise<string>;
 	onShowToast?: (msg: string, code: string) => void;
@@ -108,7 +107,6 @@ export default class SelectionToolbar extends React.Component<Props> {
 							mark={range.mark}
 							from={range.from}
 							to={range.to}
-							onCreateLink={onCreateLink ? this.handleOnCreateLink : undefined}
 							onSelectLink={this.handleOnSelectLink}
 							{...rest}
 						/>

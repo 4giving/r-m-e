@@ -14,7 +14,6 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import BlockMenu from './components/BlockMenu';
 import Flex from './components/Flex';
-import { SearchResult } from './components/LinkEditor';
 import LinkToolbar from './components/LinkToolbar';
 import SelectionToolbar from './components/SelectionToolbar';
 import Tooltip from './components/Tooltip';
@@ -86,7 +85,6 @@ export type Props = {
 	onImageUploadStart?: () => void;
 	onImageUploadStop?: () => void;
 	onCreateLink?: (title: string) => Promise<string>;
-	onSearchLink?: (term: string) => Promise<SearchResult[]>;
 	onClickLink: (href: string, event: MouseEvent) => void;
 	onHoverLink?: (event: MouseEvent) => boolean;
 	onClickHashtag?: (tag: string, event: MouseEvent) => void;
@@ -532,7 +530,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									dictionary={dictionary}
 									commands={this.commands}
 									isTemplate={this.props.template === true}
-									onSearchLink={this.props.onSearchLink}
 									onClickLink={this.props.onClickLink}
 									onCreateLink={this.props.onCreateLink}
 									tooltip={tooltip}
@@ -542,7 +539,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									dictionary={dictionary}
 									isActive={this.state.linkMenuOpen}
 									onCreateLink={this.props.onCreateLink}
-									onSearchLink={this.props.onSearchLink}
 									onClickLink={this.props.onClickLink}
 									onShowToast={this.props.onShowToast}
 									onClose={this.handleCloseLinkMenu}

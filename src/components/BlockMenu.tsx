@@ -363,9 +363,7 @@ class BlockMenu extends React.Component<Props, State> {
 						<LinkInputWrapper>
 							<LinkInput
 								type="text"
-								placeholder={
-									insertItem.title ? dictionary.pasteLinkWithTitle(insertItem.title) : dictionary.pasteLink
-								}
+								placeholder={dictionary.pasteLink}
 								onKeyDown={this.handleLinkInputKeydown}
 								onPaste={this.handleLinkInputPaste}
 								autoFocus

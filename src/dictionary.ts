@@ -35,7 +35,6 @@ export const base = {
 	openLink: 'Open link',
 	orderedList: 'Ordered list',
 	pasteLink: 'Paste a link…',
-	pasteLinkWithTitle: (title: string) => `Paste a ${title} link…`,
 	placeholder: 'Placeholder',
 	quote: 'Quote',
 	removeLink: 'Remove link',
