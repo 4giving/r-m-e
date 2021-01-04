@@ -19,6 +19,9 @@ export default styled.button<Props>`
 	&:first-child {
 		margin-left: 0;
 	}
+	&:last-child {
+		margin-right: 0;
+	}
 
 	&:hover {
 		opacity: 1;

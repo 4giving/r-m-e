@@ -103,19 +103,14 @@ class Example extends React.Component {
 					onSave={options => console.log('Save triggered', options)}
 					onCancel={() => console.log('Cancel triggered')}
 					onChange={this.handleChange}
-					onClickLink={(href, event) => console.log('Clicked link: ', href, event)}
+					// onClickLink={(href, event) => console.log('Clicked link: ', href, event)}
 					onHoverLink={event => {
 						console.log('Hovered link: ', event.target.href);
 						return false;
 					}}
 					onShowToast={(message, type) => window.alert(`${type}: ${message}`)}
-					uploadImage={file => {
-						console.log('File upload triggered: ', file);
-
-						// Delay to simulate time taken to upload
-						return new Promise(resolve => {
-							setTimeout(() => resolve('https://picsum.photos/600/600'), 1500);
-						});
+					insertImageHandler={handler => {
+						handler('https://picsum.photos/600/600');
 					}}
 					embeds={[
 						{

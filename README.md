@@ -115,19 +115,6 @@ Optionally define embeds which will be inserted in place of links when the `matc
 
 ### Callbacks
 
-#### `uploadImage(file: Blob): Promise<string>`
-
-If you want the editor to support images then this callback must be provided. The callback should accept a single `File` object and return a promise the resolves to a url when the image has been uploaded to a storage location, for example S3. eg:
-
-```javascript
-<Editor
-	uploadImage={async file => {
-		const result = await s3.upload(file);
-		return result.url;
-	}}
-/>
-```
-
 #### `onSave({ done: boolean }): void`
 
 This callback is triggered when the user explicitly requests to save using a keyboard shortcut, `Cmd+S` or `Cmd+Enter`. You can use this as a signal to save the document to a remote server.
@@ -141,54 +128,6 @@ This callback is triggered when the `Cmd+Escape` is hit within the editor. You m
 This callback is triggered when the contents of the editor changes, usually due to user input such as a keystroke or using formatting options. You may use this to locally persist the editors state, see the [inbuilt example](/example/src/index.js).
 
 It returns a function which when called returns the current text value of the document. This optimization is made to avoid serializing the state of the document to text on every change event, allowing the host app to choose when it needs the serialized value.
-
-#### `onImageUploadStart(): void`
-
-This callback is triggered before `uploadImage` and can be used to show some UI that indicates an upload is in progress.
-
-#### `onImageUploadStop(): void`
-
-Triggered once an image upload has succeeded or failed.
-
-#### `onSearchLink(term: string): Promise<{ title: string, subtitle?: string, url: string }[]>`
-
-The editor provides an ability to search for links to insert from the formatting toolbar. If this callback is provided it should accept a search term as the only parameter and return a promise that resolves to an array of objects. eg:
-
-```javascript
-<Editor
-  onSearchLink={async searchTerm => {
-    const results = await MyAPI.search(searchTerm);
-
-    return results.map(result => {
-      title: result.name,
-      subtitle: `Created ${result.createdAt}`,
-      url: result.url
-    })
-  }}
-/>
-```
-
-#### `onCreateLink(title: string): Promise<string>`
-
-The editor provides an ability to create links from the formatting toolbar for on-the-fly document createion. If this callback is provided it should accept a link "title" as the only parameter and return a promise that resolves to a url for the created link, eg:
-
-```javascript
-<Editor
-	onCreateLink={async title => {
-		const url = await MyAPI.create({
-			title
-		});
-
-		return url;
-	}}
-/>
-```
-
-#### `onShowToast(message: string, type: ToastType): void`
-
-Triggered when the editor wishes to show a message to the user. Hook into your app's
-notification system, or simplisticly use `window.alert(message)`. The second parameter
-is the type of toast: 'error' or 'info'.
 
 #### `onClickLink(href: string, event: MouseEvent): void`
 
@@ -220,20 +159,6 @@ This callback allows detecting when the user hovers over a link in the document.
 />
 ```
 
-#### `onClickHashtag(tag: string, event: MouseEvent): void`
-
-This callback allows handling of clicking on hashtags in the document text. If no callback is provided then hashtags will render as regular text, so you can choose if to support them or not by passing this prop.
-
-```javascript
-import { history } from 'react-router';
-
-<Editor
-	onClickHashtag={tag => {
-		history.push(`/hashtags/${tag}`);
-	}}
-/>;
-```
-
 #### `handleDOMEvents: {[name: string]: (view: EditorView, event: Event) => boolean;}`
 
 This object maps [event](https://developer.mozilla.org/en-US/docs/Web/Events) names (`focus`, `paste`, `touchstart`, etc.) to callback functions.
@@ -245,6 +170,18 @@ This object maps [event](https://developer.mozilla.org/en-US/docs/Web/Events) na
 		blur: () => console.log('BLUR'),
 		paste: () => console.log('PASTE'),
 		touchstart: () => console.log('TOUCH START')
+	}}
+/>
+```
+
+#### `insertImageHandler: () => (imageUrl: string);`
+
+This allows you to get a method that will insert an image url string for you, removing the reliance of image uploading through this tool.
+
+```javascript
+<Editor
+	insertImageHandler={handler => {
+		handler('https://picsum.photos/600/600');
 	}}
 />
 ```

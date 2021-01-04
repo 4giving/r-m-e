@@ -6,7 +6,7 @@ const colors = {
 	white10: 'rgba(255, 255, 255, 0.1)',
 	black: '#000',
 	black10: 'rgba(0, 0, 0, 0.1)',
-	primary: '#1AB6FF',
+	primary: '#5FAF85',
 	greyLight: '#F4F7FA',
 	grey: '#E8EBED',
 	greyMid: '#C5CCD3',
@@ -26,21 +26,6 @@ export const base = {
 	textLight: colors.white,
 	textHighlight: '#b3e7ff',
 	selected: colors.primary,
-	codeComment: '#6a737d',
-	codePunctuation: '#5e6687',
-	codeNumber: '#d73a49',
-	codeProperty: '#c08b30',
-	codeTag: '#3d8fd1',
-	codeString: '#032f62',
-	codeSelector: '#6679cc',
-	codeAttr: '#c76b29',
-	codeEntity: '#22a2c9',
-	codeKeyword: '#d73a49',
-	codeFunction: '#6f42c1',
-	codeStatement: '#22a2c9',
-	codePlaceholder: '#3d8fd1',
-	codeInserted: '#202746',
-	codeImportant: '#c94922',
 
 	blockToolbarBackground: colors.white,
 	blockToolbarTrigger: colors.greyMid,
@@ -48,14 +33,7 @@ export const base = {
 	blockToolbarItem: colors.almostBlack,
 	blockToolbarText: colors.almostBlack,
 	blockToolbarHoverBackground: colors.greyLight,
-	blockToolbarDivider: colors.greyMid,
-
-	noticeInfoBackground: '#F5BE31',
-	noticeInfoText: colors.almostBlack,
-	noticeTipBackground: '#9E5CF7',
-	noticeTipText: colors.white,
-	noticeWarningBackground: '#FF5C80',
-	noticeWarningText: colors.white
+	blockToolbarDivider: colors.greyMid
 };
 
 export const light = {
@@ -70,10 +48,6 @@ export const light = {
 	toolbarHoverBackground: colors.black,
 	toolbarInput: colors.white10,
 	toolbarItem: '#A9A59C',
-
-	tableDivider: colors.greyMid,
-	tableSelected: colors.primary,
-	tableSelectedBackground: '#E5F7FF',
 
 	quote: colors.greyDark,
 	codeBackground: colors.greyLight,
@@ -98,10 +72,6 @@ export const dark = {
 	toolbarHoverBackground: colors.greyMid,
 	toolbarInput: colors.black10,
 	toolbarItem: colors.lightBlack,
-
-	tableDivider: colors.lightBlack,
-	tableSelected: colors.primary,
-	tableSelectedBackground: '#002333',
 
 	quote: colors.greyDark,
 	codeBackground: colors.black,

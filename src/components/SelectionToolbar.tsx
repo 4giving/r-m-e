@@ -8,17 +8,12 @@ import { Portal } from 'react-portal';
 import createAndInsertLink from '../commands/createAndInsertLink';
 import baseDictionary from '../dictionary';
 import getFormattingMenuItems from '../menus/formatting';
-import getTableMenuItems from '../menus/table';
-import getTableColMenuItems from '../menus/tableCol';
-import getTableRowMenuItems from '../menus/tableRow';
-import getColumnIndex from '../queries/getColumnIndex';
 import getMarkRange from '../queries/getMarkRange';
-import getRowIndex from '../queries/getRowIndex';
 import isMarkActive from '../queries/isMarkActive';
 import isNodeActive from '../queries/isNodeActive';
 import { MenuItem } from '../types';
 import FloatingToolbar from './FloatingToolbar';
-import LinkEditor, { SearchResult } from './LinkEditor';
+import LinkEditor from './LinkEditor';
 import Menu from './Menu';
 
 type Props = {
@@ -26,7 +21,6 @@ type Props = {
 	tooltip: typeof React.Component | React.FC<any>;
 	isTemplate: boolean;
 	commands: Record<string, any>;
-	onSearchLink?: (term: string) => Promise<SearchResult[]>;
 	onClickLink: (href: string, event: MouseEvent) => void;
 	onCreateLink?: (title: string) => Promise<string>;
 	onShowToast?: (msg: string, code: string) => void;
@@ -94,22 +88,11 @@ export default class SelectionToolbar extends React.Component<Props> {
 			return null;
 		}
 
-		const colIndex = getColumnIndex(state.selection);
-		const rowIndex = getRowIndex(state.selection);
-		const isTableSelection = colIndex !== undefined && rowIndex !== undefined;
 		const link = isMarkActive(state.schema.marks.link)(state);
 		const range = getMarkRange(selection.$from, state.schema.marks.link);
 
 		let items: MenuItem[] = [];
-		if (isTableSelection) {
-			items = getTableMenuItems(dictionary);
-		} else if (colIndex !== undefined) {
-			items = getTableColMenuItems(state, colIndex, dictionary);
-		} else if (rowIndex !== undefined) {
-			items = getTableRowMenuItems(state, rowIndex, dictionary);
-		} else {
-			items = getFormattingMenuItems(state, dictionary);
-		}
+		items = getFormattingMenuItems(state, dictionary);
 
 		if (!items.length) {
 			return null;
@@ -124,7 +107,6 @@ export default class SelectionToolbar extends React.Component<Props> {
 							mark={range.mark}
 							from={range.from}
 							to={range.to}
-							onCreateLink={onCreateLink ? this.handleOnCreateLink : undefined}
 							onSelectLink={this.handleOnSelectLink}
 							{...rest}
 						/>

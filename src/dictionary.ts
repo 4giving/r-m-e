@@ -15,9 +15,6 @@ export const base = {
 	createLink: 'Create link',
 	createLinkError: 'Sorry, an error occurred creating the link',
 	createNewDoc: 'Create a new doc',
-	deleteColumn: 'Delete column',
-	deleteRow: 'Delete row',
-	deleteTable: 'Delete table',
 	em: 'Italic',
 	embedInvalidLink: 'Sorry, that link won’t work for this embed type',
 	findOrCreateDoc: 'Find or create a doc…',
@@ -29,7 +26,6 @@ export const base = {
 	image: 'Image',
 	imageUploadError: 'Sorry, an error occurred uploading the image',
 	info: 'Info',
-	infoNotice: 'Info notice',
 	link: 'Link',
 	linkCopied: 'Link copied to clipboard',
 	mark: 'Highlight',
@@ -39,19 +35,13 @@ export const base = {
 	openLink: 'Open link',
 	orderedList: 'Ordered list',
 	pasteLink: 'Paste a link…',
-	pasteLinkWithTitle: (title: string) => `Paste a ${title} link…`,
 	placeholder: 'Placeholder',
 	quote: 'Quote',
 	removeLink: 'Remove link',
 	searchOrPasteLink: 'Search or paste a link…',
 	strikethrough: 'Strikethrough',
 	strong: 'Bold',
-	subheading: 'Subheading',
-	table: 'Table',
-	tip: 'Tip',
-	tipNotice: 'Tip notice',
-	warning: 'Warning',
-	warningNotice: 'Warning notice'
+	subheading: 'Subheading'
 };
 
 export default base;

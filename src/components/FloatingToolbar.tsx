@@ -62,21 +62,6 @@ function usePosition({ menuRef, isSelectingText, props }) {
 		right: Math.max(fromPos.right, toPos.right)
 	};
 
-	// tables are an oddity, and need their own positioning logic
-	const isColSelection = selection.isColSelection && selection.isColSelection();
-	const isRowSelection = selection.isRowSelection && selection.isRowSelection();
-
-	if (isColSelection) {
-		const { node: element } = view.domAtPos(selection.$from.pos);
-		const { width } = element.getBoundingClientRect();
-		selectionBounds.top -= 20;
-		selectionBounds.right = selectionBounds.left + width;
-	}
-
-	if (isRowSelection) {
-		selectionBounds.right = selectionBounds.left = selectionBounds.left - 18;
-	}
-
 	// calcluate the horizontal center of the selection
 	const halfSelection = Math.abs(selectionBounds.right - selectionBounds.left) / 2;
 	const centerOfSelection = selectionBounds.left + halfSelection;
@@ -139,7 +124,7 @@ function FloatingToolbar(props: Props) {
 				ref={menuRef}
 				offset={position.offset}
 				style={{
-					top: `${position.top}px`,
+					top: `${position.top - 8}px`,
 					left: `${position.left}px`
 				}}
 			>
@@ -173,14 +158,14 @@ const Wrapper = styled.div<{
 	&::before {
 		content: '';
 		display: block;
-		width: 24px;
-		height: 24px;
+		width: 26px;
+		height: 16px;
 		transform: translateX(-50%) rotate(45deg);
-		background: ${props => props.theme.toolbarBackground};
-		border-radius: 3px;
+		background-color: ${props => props.theme.toolbarBackground};
+		border-radius: 0px;
 		z-index: -1;
 		position: absolute;
-		bottom: -2px;
+		bottom: -4px;
 		left: calc(50% - ${props => props.offset || 0}px);
 	}
 

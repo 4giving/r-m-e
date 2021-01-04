@@ -1,5 +1,4 @@
 import { EditorState } from 'prosemirror-state';
-import { isInTable } from 'prosemirror-tables';
 
 import baseDictionary from '../dictionary';
 import isInList from '../queries/isInList';
@@ -16,9 +15,8 @@ import QuoteIcon from './icons/quote';
 
 export default function formattingMenuItems(state: EditorState, dictionary: typeof baseDictionary): MenuItem[] {
 	const { schema } = state;
-	const isTable = isInTable(state);
 	const isList = isInList(state);
-	const allowBlocks = !isTable && !isList;
+	const allowBlocks = !isList;
 
 	return [
 		{
@@ -56,13 +54,6 @@ export default function formattingMenuItems(state: EditorState, dictionary: type
 			active: isNodeActive(schema.nodes.blockquote),
 			attrs: { level: 2 },
 			visible: allowBlocks
-		},
-		{
-			name: 'image',
-			tooltip: dictionary.addImage,
-			icon: ImageIcon,
-			active: isMarkActive(schema.marks.link),
-			attrs: { href: '' }
 		},
 		{
 			name: 'link',

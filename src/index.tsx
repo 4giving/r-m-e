@@ -7,7 +7,6 @@ import { keymap } from 'prosemirror-keymap';
 import { MarkdownParser, MarkdownSerializer } from 'prosemirror-markdown';
 import { MarkSpec, NodeSpec, Schema, Slice } from 'prosemirror-model';
 import { EditorState, Plugin, Selection } from 'prosemirror-state';
-import { selectColumn, selectRow, selectTable } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 /* global window File Promise */
 import * as React from 'react';
@@ -15,7 +14,6 @@ import styled, { ThemeProvider } from 'styled-components';
 
 import BlockMenu from './components/BlockMenu';
 import Flex from './components/Flex';
-import { SearchResult } from './components/LinkEditor';
 import LinkToolbar from './components/LinkToolbar';
 import SelectionToolbar from './components/SelectionToolbar';
 import Tooltip from './components/Tooltip';
@@ -35,10 +33,6 @@ import Strikethrough from './marks/Strikethrough';
 import Underline from './marks/Underline';
 import Blockquote from './nodes/Blockquote';
 import BulletList from './nodes/BulletList';
-import CheckboxItem from './nodes/CheckboxItem';
-import CheckboxList from './nodes/CheckboxList';
-import CodeBlock from './nodes/CodeBlock';
-import CodeFence from './nodes/CodeFence';
 import Doc from './nodes/Doc';
 import Embed from './nodes/Embed';
 import HardBreak from './nodes/HardBreak';
@@ -46,15 +40,10 @@ import Heading from './nodes/Heading';
 import HorizontalRule from './nodes/HorizontalRule';
 import Image from './nodes/Image';
 import ListItem from './nodes/ListItem';
-import Notice from './nodes/Notice';
 import OrderedList from './nodes/OrderedList';
 import Paragraph from './nodes/Paragraph';
 // nodes
 import ReactNode from './nodes/ReactNode';
-import Table from './nodes/Table';
-import TableCell from './nodes/TableCell';
-import TableHeadCell from './nodes/TableHeadCell';
-import TableRow from './nodes/TableRow';
 import Text from './nodes/Text';
 // plugins
 import BlockMenuTrigger from './plugins/BlockMenuTrigger';
@@ -96,7 +85,6 @@ export type Props = {
 	onImageUploadStart?: () => void;
 	onImageUploadStop?: () => void;
 	onCreateLink?: (title: string) => Promise<string>;
-	onSearchLink?: (term: string) => Promise<SearchResult[]>;
 	onClickLink: (href: string, event: MouseEvent) => void;
 	onHoverLink?: (event: MouseEvent) => boolean;
 	onClickHashtag?: (tag: string, event: MouseEvent) => void;
@@ -106,6 +94,8 @@ export type Props = {
 	tooltip: typeof React.Component | React.FC<any>;
 	className?: string;
 	style?: Record<string, string>;
+
+	insertImageHandler?(t: string): void;
 };
 
 type State = {
@@ -224,24 +214,9 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 				new HardBreak(),
 				new Paragraph(),
 				new Blockquote(),
-				new CodeBlock({
-					dictionary,
-					initialReadOnly: this.props.readOnly,
-					onShowToast: this.props.onShowToast
-				}),
-				new CodeFence({
-					dictionary,
-					initialReadOnly: this.props.readOnly,
-					onShowToast: this.props.onShowToast
-				}),
-				new CheckboxList(),
-				new CheckboxItem(),
 				new BulletList(),
 				new Embed(),
 				new ListItem(),
-				new Notice({
-					dictionary
-				}),
 				new Heading({
 					dictionary,
 					onShowToast: this.props.onShowToast,
@@ -250,20 +225,8 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 				new HorizontalRule(),
 				new Image({
 					dictionary,
-					uploadImage: this.props.uploadImage,
-					onImageUploadStart: this.props.onImageUploadStart,
-					onImageUploadStop: this.props.onImageUploadStop,
-					onShowToast: this.props.onShowToast
+					uploadImage: this.props.uploadImage
 				}),
-				new Table(),
-				new TableCell({
-					onSelectTable: this.handleSelectTable,
-					onSelectRow: this.handleSelectRow
-				}),
-				new TableHeadCell({
-					onSelectColumn: this.handleSelectColumn
-				}),
-				new TableRow(),
 				new Bold(),
 				new Code(),
 				new Highlight(),
@@ -493,18 +456,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 		this.setState({ blockMenuOpen: false });
 	};
 
-	handleSelectRow = (index: number, state: EditorState) => {
-		this.view.dispatch(selectRow(index)(state.tr));
-	};
-
-	handleSelectColumn = (index: number, state: EditorState) => {
-		this.view.dispatch(selectColumn(index)(state.tr));
-	};
-
-	handleSelectTable = (state: EditorState) => {
-		this.view.dispatch(selectTable(state.tr));
-	};
-
 	// 'public' methods
 	focusAtStart = () => {
 		const selection = Selection.atStart(this.view.state.doc);
@@ -578,7 +529,6 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									dictionary={dictionary}
 									commands={this.commands}
 									isTemplate={this.props.template === true}
-									onSearchLink={this.props.onSearchLink}
 									onClickLink={this.props.onClickLink}
 									onCreateLink={this.props.onCreateLink}
 									tooltip={tooltip}
@@ -588,13 +538,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									dictionary={dictionary}
 									isActive={this.state.linkMenuOpen}
 									onCreateLink={this.props.onCreateLink}
-									onSearchLink={this.props.onSearchLink}
 									onClickLink={this.props.onClickLink}
 									onShowToast={this.props.onShowToast}
 									onClose={this.handleCloseLinkMenu}
 									tooltip={tooltip}
 								/>
 								<BlockMenu
+									insertImageHandler={this.props.insertImageHandler}
 									view={this.view}
 									commands={this.commands}
 									dictionary={dictionary}
@@ -815,51 +765,6 @@ const StyledEditor = styled('div')<{
 		}
 	}
 
-	.notice-block {
-		display: flex;
-		align-items: center;
-		background: ${props => props.theme.noticeInfoBackground};
-		color: ${props => props.theme.noticeInfoText};
-		border-radius: 4px;
-		padding: 8px 16px;
-		margin: 8px 0;
-
-		a {
-			color: ${props => props.theme.noticeInfoText};
-		}
-
-		a:not(.heading-name) {
-			text-decoration: underline;
-		}
-	}
-
-	.notice-block .icon {
-		width: 24px;
-		height: 24px;
-		align-self: flex-start;
-		margin-right: 4px;
-		position: relative;
-		top: 1px;
-	}
-
-	.notice-block.tip {
-		background: ${props => props.theme.noticeTipBackground};
-		color: ${props => props.theme.noticeTipText};
-
-		a {
-			color: ${props => props.theme.noticeTipText};
-		}
-	}
-
-	.notice-block.warning {
-		background: ${props => props.theme.noticeWarningBackground};
-		color: ${props => props.theme.noticeWarningText};
-
-		a {
-			color: ${props => props.theme.noticeWarningText};
-		}
-	}
-
 	blockquote {
 		border-left: 3px solid ${props => props.theme.quote};
 		margin: 0;
@@ -915,29 +820,6 @@ const StyledEditor = styled('div')<{
 		list-style: lower-roman;
 	}
 
-	ul.checkbox_list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	ul.checkbox_list li {
-		display: flex;
-	}
-
-	ul.checkbox_list li.checked > div > p {
-		color: ${props => props.theme.textSecondary};
-		text-decoration: line-through;
-	}
-
-	ul.checkbox_list li input {
-		pointer-events: ${props => (props.readOnly && !props.readOnlyWriteCheckboxes ? 'none' : 'initial')};
-		opacity: ${props => (props.readOnly && !props.readOnlyWriteCheckboxes ? 0.75 : 1)};
-		margin: 0 0.5em 0 0;
-		width: 14px;
-		height: 14px;
-	}
-
 	li p:first-child {
 		margin: 0;
 		word-break: break-word;
@@ -949,173 +831,18 @@ const StyledEditor = styled('div')<{
 		border-top: 1px solid ${props => props.theme.horizontalRule};
 	}
 
-	code {
-		border-radius: 4px;
-		border: 1px solid ${props => props.theme.codeBorder};
-		padding: 3px 4px;
-		font-family: ${props => props.theme.fontFamilyMono};
-		font-size: 85%;
-	}
-
 	mark {
 		border-radius: 1px;
 		color: ${props => props.theme.black};
 		background: ${props => props.theme.textHighlight};
 	}
 
-	.code-block,
-	.notice-block {
-		position: relative;
-
-		select,
-		button {
-			background: ${props => props.theme.blockToolbarBackground};
-			color: ${props => props.theme.blockToolbarItem};
-			border-width: 1px;
-			font-size: 13px;
-			display: none;
-			position: absolute;
-			border-radius: 4px;
-			padding: 2px;
-			z-index: 1;
-			top: 4px;
-			right: 4px;
-		}
-
-		button {
-			padding: 2px 4px;
-		}
-
-		&:hover {
-			select {
-				display: ${props => (props.readOnly ? 'none' : 'inline')};
-			}
-
-			button {
-				display: ${props => (props.readOnly ? 'inline' : 'none')};
-			}
-		}
-
-		select:focus,
-		select:active {
-			display: inline;
-		}
-	}
-
-	pre {
-		display: block;
-		overflow-x: auto;
-		padding: 0.75em 1em;
-		line-height: 1.4em;
-		position: relative;
-		background: ${props => props.theme.codeBackground};
-		border-radius: 4px;
-		border: 1px solid ${props => props.theme.codeBorder};
-
-		-webkit-font-smoothing: initial;
-		font-family: ${props => props.theme.fontFamilyMono};
-		font-size: 13px;
-		direction: ltr;
-		text-align: left;
-		white-space: pre;
-		word-spacing: normal;
-		word-break: normal;
-		-moz-tab-size: 4;
-		-o-tab-size: 4;
-		tab-size: 4;
-		-webkit-hyphens: none;
-		-moz-hyphens: none;
-		-ms-hyphens: none;
-		hyphens: none;
-		color: ${props => props.theme.code};
-		margin: 0;
-
-		code {
-			font-size: 13px;
-			background: none;
-			padding: 0;
-			border: 0;
-		}
-	}
-
-	.token.comment,
-	.token.prolog,
-	.token.doctype,
-	.token.cdata {
-		color: ${props => props.theme.codeComment};
-	}
-
-	.token.punctuation {
-		color: ${props => props.theme.codePunctuation};
-	}
-
 	.token.namespace {
 		opacity: 0.7;
 	}
 
-	.token.operator,
-	.token.boolean,
-	.token.number {
-		color: ${props => props.theme.codeNumber};
-	}
-
-	.token.property {
-		color: ${props => props.theme.codeProperty};
-	}
-
-	.token.tag {
-		color: ${props => props.theme.codeTag};
-	}
-
-	.token.string {
-		color: ${props => props.theme.codeString};
-	}
-
-	.token.selector {
-		color: ${props => props.theme.codeSelector};
-	}
-
-	.token.attr-name {
-		color: ${props => props.theme.codeAttr};
-	}
-
-	.token.entity,
-	.token.url,
-	.language-css .token.string,
-	.style .token.string {
-		color: ${props => props.theme.codeEntity};
-	}
-
-	.token.attr-value,
-	.token.keyword,
-	.token.control,
-	.token.directive,
-	.token.unit {
-		color: ${props => props.theme.codeKeyword};
-	}
-
-	.token.function {
-		color: ${props => props.theme.codeFunction};
-	}
-
-	.token.statement,
-	.token.regex,
-	.token.atrule {
-		color: ${props => props.theme.codeStatement};
-	}
-
-	.token.placeholder,
-	.token.variable {
-		color: ${props => props.theme.codePlaceholder};
-	}
-
 	.token.deleted {
 		text-decoration: line-through;
-	}
-
-	.token.inserted {
-		border-bottom: 1px dotted ${props => props.theme.codeInserted};
-		text-decoration: none;
 	}
 
 	.token.italic {
@@ -1127,130 +854,8 @@ const StyledEditor = styled('div')<{
 		font-weight: bold;
 	}
 
-	.token.important {
-		color: ${props => props.theme.codeImportant};
-	}
-
 	.token.entity {
 		cursor: help;
-	}
-
-	table {
-		width: 100%;
-		border-collapse: collapse;
-		border-radius: 4px;
-		margin-top: 1em;
-
-		tr {
-			position: relative;
-			border-bottom: 1px solid ${props => props.theme.tableDivider};
-		}
-
-		th {
-			background: ${props => props.theme.tableHeaderBackground};
-		}
-
-		td,
-		th {
-			position: relative;
-			vertical-align: top;
-			border: 1px solid ${props => props.theme.tableDivider};
-			position: relative;
-			padding: 4px 8px;
-			text-align: left;
-			min-width: 100px;
-		}
-
-		.selectedCell {
-			background: ${props => (props.readOnly ? 'inherit' : props.theme.tableSelectedBackground)};
-
-			/* fixes Firefox background color painting over border:
-       * https://bugzilla.mozilla.org/show_bug.cgi?id=688556 */
-			background-clip: padding-box;
-		}
-
-		.grip-column {
-			/* usage of ::after for all of the table grips works around a bug in
-       * prosemirror-tables that causes Safari to hang when selecting a cell
-       * in an empty table:
-       * https://github.com/ProseMirror/prosemirror/issues/947 */
-			&::after {
-				content: '';
-				cursor: pointer;
-				position: absolute;
-				top: -16px;
-				left: 0;
-				width: 100%;
-				height: 12px;
-				background: ${props => props.theme.tableDivider};
-				border-bottom: 3px solid ${props => props.theme.background};
-				display: ${props => (props.readOnly ? 'none' : 'block')};
-			}
-
-			&:hover::after {
-				background: ${props => props.theme.text};
-			}
-			&.first::after {
-				border-top-left-radius: 3px;
-			}
-			&.last::after {
-				border-top-right-radius: 3px;
-			}
-			&.selected::after {
-				background: ${props => props.theme.tableSelected};
-			}
-		}
-
-		.grip-row {
-			&::after {
-				content: '';
-				cursor: pointer;
-				position: absolute;
-				left: -16px;
-				top: 0;
-				height: 100%;
-				width: 12px;
-				background: ${props => props.theme.tableDivider};
-				border-right: 3px solid ${props => props.theme.background};
-				display: ${props => (props.readOnly ? 'none' : 'block')};
-			}
-
-			&:hover::after {
-				background: ${props => props.theme.text};
-			}
-			&.first::after {
-				border-top-left-radius: 3px;
-			}
-			&.last::after {
-				border-bottom-left-radius: 3px;
-			}
-			&.selected::after {
-				background: ${props => props.theme.tableSelected};
-			}
-		}
-
-		.grip-table {
-			&::after {
-				content: '';
-				cursor: pointer;
-				background: ${props => props.theme.tableDivider};
-				width: 13px;
-				height: 13px;
-				border-radius: 13px;
-				border: 2px solid ${props => props.theme.background};
-				position: absolute;
-				top: -18px;
-				left: -18px;
-				display: ${props => (props.readOnly ? 'none' : 'block')};
-			}
-
-			&:hover::after {
-				background: ${props => props.theme.text};
-			}
-			&.selected::after {
-				background: ${props => props.theme.tableSelected};
-			}
-		}
 	}
 
 	.scrollable-wrapper {
@@ -1334,9 +939,9 @@ const StyledEditor = styled('div')<{
 
 		&:hover,
 		&:focus {
+			background-color: ${props => props.theme.primary};
 			cursor: pointer;
-
-			color: ${props => props.theme.text};
+			color: #fff;
 		}
 	}
 
