@@ -1,4 +1,3 @@
-import { CloseIcon, OpenIcon, TrashIcon } from 'outline-icons';
 import { Mark } from 'prosemirror-model';
 import { setTextSelection } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
@@ -7,6 +6,9 @@ import styled, { withTheme } from 'styled-components';
 
 import baseDictionary from '../dictionary';
 import isUrl from '../lib/isUrl';
+import CloseIcon from '../menus/icons/close';
+import OpenIcon from '../menus/icons/open';
+import TrashIcon from '../menus/icons/trash';
 import theme from '../theme';
 import Flex from './Flex';
 import Input from './Input';
@@ -135,7 +137,6 @@ class LinkEditor extends React.Component<Props, State> {
 	};
 
 	handleOpenLink = (event): void => {
-		console.log('');
 		event.preventDefault();
 		this.props.onClickLink(this.href, event);
 	};

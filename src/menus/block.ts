@@ -1,12 +1,12 @@
-import { HorizontalRuleIcon, OrderedListIcon } from 'outline-icons';
-
 import baseDictionary from '../dictionary';
 import { MenuItem } from '../types';
 import BulletListIcon from './icons/bulletList';
 import HeadingOne from './icons/headingOne';
 import HeadingTwo from './icons/headingTwo';
+import HorizontalRuleIcon from './icons/hz';
 import ImageIcon from './icons/image';
 import LinkIcon from './icons/link';
+import OrderedListIcon from './icons/orderedList';
 import QuoteIcon from './icons/quote';
 
 const isMac = window.navigator.platform === 'MacIntel';
