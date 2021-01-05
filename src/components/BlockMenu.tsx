@@ -225,7 +225,7 @@ class BlockMenu extends React.Component<Props, State> {
 
 	triggerImagePick = () => {
 		if (this.props.insertImageHandler) {
-			this.props.insertImageHandler(this.handleImagePickedURL);
+			this.props.insertImageHandler(() => this.handleImagePickedURL);
 		}
 	};
 
