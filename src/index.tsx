@@ -936,12 +936,29 @@ const StyledEditor = styled('div')<{
 		line-height: 1;
 		margin-top: 0px;
 		left: -38px;
+		box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.12);
+
+		& svg {
+			fill: #5faf85;
+		}
 
 		&:hover,
 		&:focus {
 			background-color: ${props => props.theme.primary};
 			cursor: pointer;
 			color: #fff;
+			& svg {
+				fill: #fff;
+			}
+		}
+
+		@media (max-width: 749px) {
+			width: 44px;
+			height: 44px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 0;
 		}
 	}
 

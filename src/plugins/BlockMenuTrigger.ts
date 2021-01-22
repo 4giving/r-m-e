@@ -97,9 +97,19 @@ export default class BlockMenuTrigger extends Extension {
 								decorations.push(
 									Decoration.widget(parent.pos, () => {
 										const icon = document.createElement('button');
+										const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+										svgElement.setAttribute('style', 'width:24px;height:24px');
+										svgElement.setAttribute('viewBox', '0 0 24 24');
+
+										const iconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+										iconPath.setAttributeNS(null, 'd', 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z');
+										// iconPath.setAttribute('fill', 'currentColor');
+
+										svgElement.appendChild(iconPath);
+
 										icon.type = 'button';
 										icon.className = 'block-menu-trigger';
-										icon.innerText = '+';
+										icon.appendChild(svgElement);
 										icon.addEventListener('click', () => {
 											this.options.onOpen('');
 										});
