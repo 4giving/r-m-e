@@ -10,7 +10,6 @@ import HeadingOne from './icons/headingOne';
 import HeadingThree from './icons/headingThree';
 import HeadingTwo from './icons/headingTwo';
 import ImageIcon from './icons/image';
-// import InputIcon from './icons/input';
 import ItalicIcon from './icons/italic';
 import LinkIcon from './icons/link';
 import QuoteIcon from './icons/quote';
