@@ -19,7 +19,7 @@ export const base = {
 		"-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen, Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif",
 	fontFamilyMono: "'SFMono-Regular',Consolas,'Liberation Mono', Menlo, Courier,monospace",
 	fontWeight: 400,
-	zIndex: 100,
+	zIndex: 1400,
 	link: colors.primary,
 	placeholder: '#B1BECC',
 	textSecondary: '#4E5C6E',
