@@ -81,7 +81,7 @@ export type Props = {
 	uploadImage?: (file: File) => Promise<string>;
 	onSave?: ({ done: boolean }) => void;
 	onCancel?: () => void;
-	onChange: (value: () => string) => void;
+	onChange?: (value: () => string) => void;
 	onImageUploadStart?: () => void;
 	onImageUploadStop?: () => void;
 	onCreateLink?: (title: string) => Promise<string>;
