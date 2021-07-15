@@ -1,7 +1,7 @@
 {
   "name": "@4giving/r-m-e",
   "description": "A modified rich markdown editor",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "BSD-3-Clause",
@@ -33,7 +33,6 @@
     "prosemirror-tables": "^1.1.1",
     "prosemirror-utils": "^0.9.6",
     "prosemirror-view": "^1.16.1",
-    "react-medium-image-zoom": "^3.0.16",
     "react-portal": "^4.2.1",
     "resize-observer-polyfill": "^1.5.1",
     "slugify": "^1.4.0",
