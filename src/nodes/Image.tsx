@@ -2,7 +2,6 @@ import { InputRule } from 'prosemirror-inputrules';
 import { NodeSelection } from 'prosemirror-state';
 import { setTextSelection } from 'prosemirror-utils';
 import * as React from 'react';
-import ImageZoom from 'react-medium-image-zoom';
 import styled from 'styled-components';
 
 import Node from './Node';
@@ -119,7 +118,7 @@ export default class Image extends Node {
 	};
 
 	component = props => {
-		const { theme, isEditable, isSelected } = props;
+		const { isEditable, isSelected } = props;
 		const { alt, src } = props.node.attrs;
 
 		return (
@@ -128,19 +127,7 @@ export default class Image extends Node {
 					className={isSelected ? 'ProseMirror-selectednode' : ''}
 					onClick={isEditable ? this.handleSelect(props) : undefined}
 				>
-					<ImageZoom
-						image={{
-							src,
-							alt,
-							style: STYLE
-						}}
-						defaultStyles={{
-							overlay: {
-								backgroundColor: theme.background
-							}
-						}}
-						shouldRespectMaxDimension
-					/>
+					<img src={src} alt={alt} style={STYLE} />
 				</ImageWrapper>
 
 				{(isEditable || alt) && (
