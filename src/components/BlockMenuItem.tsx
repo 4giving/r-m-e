@@ -4,18 +4,17 @@ import styled, { withTheme } from 'styled-components';
 
 import theme from '../theme';
 
-export type Props = {
+type Props = {
 	selected: boolean;
 	disabled?: boolean;
 	onClick: () => void;
 	theme: typeof theme;
-	icon?: typeof React.Component | React.FC<any>;
-	title: React.ReactNode;
+	icon: typeof React.Component | React.FC<any>;
+	title: string;
 	shortcut?: string;
-	containerId?: string;
 };
 
-function BlockMenuItem({ selected, disabled, onClick, title, shortcut, icon, containerId = 'block-menu-container' }: Props) {
+function BlockMenuItem({ selected, disabled, onClick, title, shortcut, icon }: Props) {
 	const Icon = icon;
 
 	const ref = React.useCallback(
@@ -28,24 +27,19 @@ function BlockMenuItem({ selected, disabled, onClick, title, shortcut, icon, con
 						// All the parent elements of your target are checked until they
 						// reach the #block-menu-container. Prevents body and other parent
 						// elements from being scrolled
-						return parent.id !== containerId;
+						return parent.id !== 'block-menu-container';
 					}
 				});
 			}
 		},
-		[selected, containerId]
+		[selected]
 	);
 
 	return (
 		<MenuItem selected={selected} onClick={disabled ? undefined : onClick} ref={ref}>
-			{Icon && (
-				<>
-					<Icon color={selected ? theme.black : undefined} />
-					&nbsp;&nbsp;
-				</>
-			)}
-			{title}
-			{shortcut && <Shortcut>{shortcut}</Shortcut>}
+			<Icon color={selected ? theme.black : undefined} />
+			&nbsp;&nbsp;{title}
+			<Shortcut>{shortcut}</Shortcut>
 		</MenuItem>
 	);
 }
@@ -63,19 +57,17 @@ const MenuItem = styled.button<{
 	height: 36px;
 	cursor: pointer;
 	border: none;
+	border-radius: 8px;
 	opacity: ${props => (props.disabled ? '.5' : '1')};
-	color: ${props => (props.selected ? props.theme.blockToolbarTextSelected : props.theme.blockToolbarText)};
-	background: ${props =>
-		props.selected ? props.theme.blockToolbarSelectedBackground || props.theme.blockToolbarTrigger : 'none'};
+	color: ${props => (props.selected ? props.theme.black : props.theme.blockToolbarText)};
+	background: ${props => (props.selected ? props.theme.blockToolbarTrigger : 'none')};
 	padding: 0 16px;
 	outline: none;
+
 	&:hover,
 	&:active {
-		color: ${props => props.theme.blockToolbarTextSelected};
-		background: ${props =>
-			props.selected
-				? props.theme.blockToolbarSelectedBackground || props.theme.blockToolbarTrigger
-				: props.theme.blockToolbarHoverBackground};
+		color: ${props => props.theme.black};
+		background: ${props => (props.selected ? props.theme.blockToolbarTrigger : props.theme.blockToolbarHoverBackground)};
 	}
 `;
 

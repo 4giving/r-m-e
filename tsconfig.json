@@ -6,15 +6,8 @@
     "noImplicitAny": false,
     "esModuleInterop": true,
     "allowJs": true,
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": [
-      "es2017",
-      "es7",
-      "es6",
-      "dom"
-    ],
+    "module": "commonjs",
+    "target": "es2017",
     "jsx": "react",
     "types": [
       "react"
