@@ -22,22 +22,19 @@ const Menu = (props: Props) => {
 	const { view, items } = props;
 	const { state } = view;
 
-	const handleImagePickedURL = React.useCallback(
-		(url: string) => {
-			const { state, dispatch } = view;
-			const parent = findParentNode(node => !!node)(state.selection);
+	const handleImagePickedURL = (url: string) => {
+		const { state, dispatch } = view;
+		const parent = findParentNode(node => !!node)(state.selection);
 
-			const { schema } = view.state;
-			if (parent) {
-				dispatch(state.tr.insert(parent.pos, schema.nodes.image.create({ src: url })));
-			}
-		},
-		[view]
-	);
+		const { schema } = view.state;
+		if (parent) {
+			dispatch(state.tr.insert(parent.pos, schema.nodes.image.create({ src: url })));
+		}
+	};
 
 	const triggerImagePick = () => {
 		if (props.insertImageHandler) {
-			props.insertImageHandler(() => handleImagePickedURL);
+			props.insertImageHandler(handleImagePickedURL);
 		}
 	};
 
@@ -54,6 +51,8 @@ const Menu = (props: Props) => {
 				const isActive = item.active ? item.active(state) : false;
 
 				const handleClick = () => {
+					console.log('item.name', item.name);
+
 					if (!item.name || item.visible === false) {
 						return;
 					} else if (item.name === 'image') {
