@@ -6,11 +6,14 @@ import isMarkActive from '../queries/isMarkActive';
 import isNodeActive from '../queries/isNodeActive';
 import { MenuItem } from '../types';
 import BoldIcon from './icons/bold';
+import BulletListIcon from './icons/bulletList';
 import HeadingOne from './icons/headingOne';
 import HeadingTwo from './icons/headingTwo';
+import HorizontalRuleIcon from './icons/hz';
 import ImageIcon from './icons/image';
 import ItalicIcon from './icons/italic';
 import LinkIcon from './icons/link';
+import OrderedListIcon from './icons/orderedList';
 import QuoteIcon from './icons/quote';
 
 export default function formattingMenuItems(state: EditorState, dictionary: typeof baseDictionary): MenuItem[] {
@@ -61,6 +64,29 @@ export default function formattingMenuItems(state: EditorState, dictionary: type
 			icon: LinkIcon,
 			active: isMarkActive(schema.marks.link),
 			attrs: { href: '' }
+		},
+		{
+			name: 'hr',
+			title: dictionary.hr,
+			icon: HorizontalRuleIcon
+		},
+		{
+			name: 'bullet_list',
+			title: dictionary.bulletList,
+			icon: BulletListIcon,
+			shortcut: '^ ⇧ 8'
+		},
+		{
+			name: 'ordered_list',
+			title: dictionary.orderedList,
+			icon: OrderedListIcon,
+			shortcut: '^ ⇧ 9'
+		},
+		{
+			name: 'image',
+			title: dictionary.image,
+			icon: ImageIcon,
+			keywords: 'picture photo'
 		}
 	];
 }

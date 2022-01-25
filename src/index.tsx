@@ -12,9 +12,9 @@ import { EditorView } from 'prosemirror-view';
 import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 
-import BlockMenu from './components/BlockMenu';
 import Flex from './components/Flex';
 import LinkToolbar from './components/LinkToolbar';
+import MenuBar from './components/MenuBar';
 import SelectionToolbar from './components/SelectionToolbar';
 import Tooltip from './components/Tooltip';
 import baseDictionary from './dictionary';
@@ -46,7 +46,6 @@ import Paragraph from './nodes/Paragraph';
 import ReactNode from './nodes/ReactNode';
 import Text from './nodes/Text';
 // plugins
-import BlockMenuTrigger from './plugins/BlockMenuTrigger';
 import History from './plugins/History';
 import Keys from './plugins/Keys';
 import MarkdownPaste from './plugins/MarkdownPaste';
@@ -250,11 +249,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 					onSaveAndExit: this.handleSaveAndExit,
 					onCancel: this.props.onCancel
 				}),
-				new BlockMenuTrigger({
-					dictionary,
-					onOpen: this.handleOpenBlockMenu,
-					onClose: this.handleCloseBlockMenu
-				}),
+
 				new Placeholder({
 					placeholder: this.props.placeholder
 				}),
@@ -516,7 +511,15 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 		return (
 			<Flex onKeyDown={onKeyDown} style={style} className={className} align="flex-start" justify="center" column>
 				<ThemeProvider theme={this.theme()}>
-					<React.Fragment>
+					<EditorContainer>
+						{!readOnly && (
+							<MenuBar
+								view={this.view}
+								dictionary={dictionary}
+								commands={this.commands}
+								onClickLink={this.props.onClickLink}
+							/>
+						)}
 						<StyledEditor
 							readOnly={readOnly}
 							readOnlyWriteCheckboxes={readOnlyWriteCheckboxes}
@@ -543,29 +546,21 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 									onClose={this.handleCloseLinkMenu}
 									tooltip={tooltip}
 								/>
-								<BlockMenu
-									insertImageHandler={this.props.insertImageHandler}
-									view={this.view}
-									commands={this.commands}
-									dictionary={dictionary}
-									isActive={this.state.blockMenuOpen}
-									search={this.state.blockMenuSearch}
-									onClose={this.handleCloseBlockMenu}
-									uploadImage={this.props.uploadImage}
-									onLinkToolbarOpen={this.handleOpenLinkMenu}
-									onImageUploadStart={this.props.onImageUploadStart}
-									onImageUploadStop={this.props.onImageUploadStop}
-									onShowToast={this.props.onShowToast}
-									embeds={this.props.embeds}
-								/>
 							</React.Fragment>
 						)}
-					</React.Fragment>
+					</EditorContainer>
 				</ThemeProvider>
 			</Flex>
 		);
 	};
 }
+
+const EditorContainer = styled('div')`
+	background-color: #fff;
+	border-radius: 8px;
+	border: 1px solid rgba(48, 46, 40, 0.01);
+	width: 100%;
+`;
 
 const StyledEditor = styled('div')<{
 	readOnly?: boolean;
@@ -578,13 +573,11 @@ const StyledEditor = styled('div')<{
 	font-size: 1em;
 	line-height: 1.7em;
 	width: 100%;
-	border-radius: 8px;
-	border: 1px solid rgba(48, 46, 40, 0.01);
 
 	.ProseMirror {
-		border-radius: 8px;
+		/* border-radius: 8px; */
 		padding: 15px;
-		border: 1px solid rgba(48, 46, 40, 0.01);
+		/* border: 1px solid rgba(48, 46, 40, 0.01); */
 		position: relative;
 		outline: none;
 		word-wrap: break-word;
@@ -923,43 +916,7 @@ const StyledEditor = styled('div')<{
 	}
 
 	.block-menu-trigger {
-		background-color: #fff;
-		display: ${props => (props.readOnly ? 'none' : 'block')};
-		height: 30px;
-		color: #5faf85;
-		border-radius: 100%;
-		font-size: 30px;
-		position: absolute;
-		transition: color 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-		outline: none;
-		border: 0;
-		line-height: 1;
-		margin-top: 0px;
-		left: -38px;
-		box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.12);
-
-		& svg {
-			fill: #5faf85;
-		}
-
-		&:hover,
-		&:focus {
-			background-color: ${props => props.theme.primary};
-			cursor: pointer;
-			color: #fff;
-			& svg {
-				fill: #fff;
-			}
-		}
-
-		@media (max-width: 749px) {
-			width: 44px;
-			height: 44px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 0;
-		}
+		display: none;
 	}
 
 	@media print {

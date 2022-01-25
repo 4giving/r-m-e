@@ -14,7 +14,6 @@ import isNodeActive from '../queries/isNodeActive';
 import { MenuItem } from '../types';
 import FloatingToolbar from './FloatingToolbar';
 import LinkEditor from './LinkEditor';
-import Menu from './Menu';
 
 type Props = {
 	dictionary: typeof baseDictionary;
@@ -98,6 +97,10 @@ export default class SelectionToolbar extends React.Component<Props> {
 			return null;
 		}
 
+		if (!link || !range) {
+			return null;
+		}
+
 		return (
 			<Portal>
 				<FloatingToolbar view={view} active={isActive(this.props)}>
@@ -110,9 +113,7 @@ export default class SelectionToolbar extends React.Component<Props> {
 							onSelectLink={this.handleOnSelectLink}
 							{...rest}
 						/>
-					) : (
-						<Menu items={items} {...rest} />
-					)}
+					) : null}
 				</FloatingToolbar>
 			</Portal>
 		);
