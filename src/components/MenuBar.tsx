@@ -12,6 +12,7 @@ interface Props {
 	onSelectLink?: (options: { href: string; title?: string; from: number; to: number }) => void;
 	onClickLink?: (href: string, event: MouseEvent) => void;
 	dictionary: typeof baseDictionary;
+	insertImageHandler?: (string) => void;
 	view: EditorView;
 	commands: Record<string, any>;
 }

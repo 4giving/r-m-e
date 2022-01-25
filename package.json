@@ -1,7 +1,7 @@
 {
   "name": "@4giving/r-m-e",
   "description": "A modified rich markdown editor",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "BSD-3-Clause",

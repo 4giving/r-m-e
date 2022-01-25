@@ -514,6 +514,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 					<EditorContainer>
 						{!readOnly && (
 							<MenuBar
+								insertImageHandler={this.props.insertImageHandler}
 								view={this.view}
 								dictionary={dictionary}
 								commands={this.commands}
