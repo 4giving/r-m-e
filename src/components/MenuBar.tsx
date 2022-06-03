@@ -42,9 +42,12 @@ const MenuBar = (props: Props): ReactElement | null => {
 const MenuBarContainer = styled('div')`
 	padding: 10px 15px;
 	border-bottom: 1px solid rgba(48, 46, 40, 0.1);
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	display: grid;
+	grid-gap: 16px;
+	grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+	grid-auto-flow: column;
+	grid-auto-columns: minmax(30px, 1fr);
+	overflow-x: auto;
 `;
 
 export default MenuBar;
